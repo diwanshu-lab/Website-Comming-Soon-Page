@@ -13,7 +13,7 @@
     <div class="container">
         <img src="images/logo.png" class="logo">
         <div class="content">
-            <p>Website is Under Deployment Process</p>
+            <p>Website is Under Maintenance</p>
             <h1>We're <span>Launching</span> Soon</h1>
             <div class="launch-time">
                 <div>
@@ -35,9 +35,17 @@
     </div>
     
     <script>
-        // 48 घंटे का काउंटडाउन सेट करें
-        var countDownTime = 48 * 60 * 60 * 1000; // 48 Hours in milliseconds
-        var endTime = new Date().getTime() + countDownTime;
+        // localStorage में टाइम सेव करने की व्यवस्था
+        var savedEndTime = localStorage.getItem("countdownEndTime");
+
+        // अगर पहले से टाइम सेव नहीं है, तो नया 48 घंटे का टाइम सेट करें
+        if (!savedEndTime) {
+            var countDownTime = 48 * 60 * 60 * 1000; // 48 घंटे मिलिसेकंड में
+            var endTime = new Date().getTime() + countDownTime;
+            localStorage.setItem("countdownEndTime", endTime);
+        } else {
+            var endTime = parseInt(savedEndTime);
+        }
 
         var x = setInterval(function(){
             var now = new Date().getTime();
@@ -52,10 +60,11 @@
             document.getElementById("minutes").innerHTML = minutes;
             document.getElementById("seconds").innerHTML = seconds;
 
-            // जब टाइमर 0 हो जाए, मैसेज दिखाए
+            // जब टाइमर खत्म हो जाए
             if (distance < 0) {
                 clearInterval(x);
                 document.querySelector(".launch-time").innerHTML = "<h2>We Have Launched!</h2>";
+                localStorage.removeItem("countdownEndTime"); // काउंटडाउन खत्म होने के बाद डेटा हटाएँ
             }
 
         }, 1000);
