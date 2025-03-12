@@ -58,3 +58,10 @@ If you want to contribute:
 ## License
 
 This project is licensed under the **MIT License**.
+
+<h2>📬 Contact</h2>
+
+Feel free to reach me through the below handles if you'd like to contact me.
+
+[![instagram](https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white)](https://www.instagram.com/connect_with_diwan)
+
