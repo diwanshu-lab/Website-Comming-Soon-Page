@@ -5,7 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Coming Soon | Website</title>
-
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -35,16 +34,13 @@
     </div>
     
     <script>
-        // localStorage में टाइम सेव करने की व्यवस्था
-        var savedEndTime = localStorage.getItem("countdownEndTime");
-
-        // अगर पहले से टाइम सेव नहीं है, तो नया 48 घंटे का टाइम सेट करें
-        if (!savedEndTime) {
-            var countDownTime = 48 * 60 * 60 * 1000; // 48 घंटे मिलिसेकंड में
+        // अगर localStorage में टाइम सेव नहीं है, तो नया टाइम सेट करो
+        if (!localStorage.getItem("countdownEndTime")) {
+            var countDownTime = 48 * 60 * 60 * 1000; // 48 घंटे मिलिसेकेंड में
             var endTime = new Date().getTime() + countDownTime;
             localStorage.setItem("countdownEndTime", endTime);
         } else {
-            var endTime = parseInt(savedEndTime);
+            var endTime = localStorage.getItem("countdownEndTime");
         }
 
         var x = setInterval(function(){
@@ -55,16 +51,15 @@
             var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-            // HTML में टाइम अपडेट करें
             document.getElementById("hours").innerHTML = hours;
             document.getElementById("minutes").innerHTML = minutes;
             document.getElementById("seconds").innerHTML = seconds;
 
-            // जब टाइमर खत्म हो जाए
+            // जब टाइमर 0 हो जाए
             if (distance < 0) {
                 clearInterval(x);
                 document.querySelector(".launch-time").innerHTML = "<h2>We Have Launched!</h2>";
-                localStorage.removeItem("countdownEndTime"); // काउंटडाउन खत्म होने के बाद डेटा हटाएँ
+                localStorage.removeItem("countdownEndTime"); // टाइमर खत्म होने पर localStorage साफ करो
             }
 
         }, 1000);
